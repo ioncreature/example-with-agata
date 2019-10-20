@@ -1,0 +1,42 @@
+{
+  "name": "example-with-agata",
+  "version": "1.0.0",
+  "description": "Example chat application with Agata library",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ioncreature/example-with-agata.git"
+  },
+  "author": "Aleksandr Marenin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ioncreature/example-with-agata/issues"
+  },
+  "homepage": "https://github.com/ioncreature/example-with-agata#readme",
+  "dependencies": {
+    "agata": "1.4.0",
+    "body-parser": "1.19.0",
+    "commander": "3.0.2",
+    "cookie-parser": "1.4.4",
+    "express": "4.17.1",
+    "glob": "7.1.4",
+    "lodash": "4.17.15",
+    "morgan": "1.9.1",
+    "winston": "3.2.1",
+    "yahel": "0.5.3"
+  },
+  "devDependencies": {
+    "eslint": "6.5.1",
+    "eslint-config-agata": "0.1.2"
+  },
+  "eslintConfig": {
+    "extends": "agata",
+    "env": {
+      "node": true
+    }
+  }
+}
