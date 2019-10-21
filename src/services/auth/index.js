@@ -10,7 +10,12 @@ exports.localActionsPath = './routes';
 exports.singletons = ['config'];
 
 
-exports.start = async({singletons: {config}, actions, localActions, state}) => {
+exports.start = async({
+    singletons: {config},
+    actions: {httpMiddleware, user},
+    localActions,
+    state,
+}) => {
     state.httpServer = new HttpServer(getRouter({actions, localActions}));
     await state.httpServer.listen(config.auth.port);
 };
@@ -28,4 +33,6 @@ function getRouter({actions, localActions: {}}) {
     router.use(bodyParser.json());
 
     router.post('/api/auth/login', );
+
+    return router;
 }

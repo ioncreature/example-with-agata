@@ -19,6 +19,7 @@
   "homepage": "https://github.com/ioncreature/example-with-agata#readme",
   "dependencies": {
     "agata": "1.4.0",
+    "bluebird": "3.7.1",
     "body-parser": "1.19.0",
     "commander": "3.0.2",
     "cookie-parser": "1.4.4",
@@ -26,6 +27,7 @@
     "glob": "7.1.4",
     "lodash": "4.17.15",
     "morgan": "1.9.1",
+    "redis": "2.8.0",
     "winston": "3.2.1",
     "yahel": "0.5.3"
   },
