@@ -1,22 +1,28 @@
 'use strict';
 
 const
+    {join} = require('path'),
     Router = require('express').Router,
-    bodyParser = require('body-parser'),
     HttpServer = require('../../lib/http-server');
 
 
-exports.localActionsPath = './routes';
-exports.singletons = ['config'];
+exports.localActionsPath = join(__dirname, '/routes');
+exports.singletons = ['config', 'redis'];
+exports.actions = ['httpMiddleware.checkAuth'];
 
 
 exports.start = async({
     singletons: {config},
-    actions: {httpMiddleware, user},
-    localActions,
+    actions: {httpMiddleware},
+    localActions: {login, logout},
     state,
 }) => {
-    state.httpServer = new HttpServer(getRouter({actions, localActions}));
+    const router = Router();
+
+    router.post('/api/auth/login', login);
+    router.post('/api/auth/logout', httpMiddleware.checkAuth, logout);
+
+    state.httpServer = new HttpServer(router);
     await state.httpServer.listen(config.auth.port);
 };
 
@@ -24,15 +30,3 @@ exports.start = async({
 exports.stop = async({state}) => {
     await (state.httpServer && state.httpServer.close());
 };
-
-
-function getRouter({actions, localActions: {}}) {
-    const router = Router();
-
-    router.use(bodyParser.urlencoded());
-    router.use(bodyParser.json());
-
-    router.post('/api/auth/login', );
-
-    return router;
-}

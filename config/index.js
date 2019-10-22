@@ -3,7 +3,7 @@
 const
     {join, sep, extname} = require('path'),
     glob = require('glob'),
-    {set} = require('lodash');
+    {set, camelCase} = require('lodash');
 
 const
     env = process.env.NODE_ENV || 'dev',
@@ -12,7 +12,10 @@ const
 module.exports = names.reduce((result, fileName) => {
     const name = String(fileName)
         .replace(extname(fileName), '')
-        .replace(new RegExp(sep, 'g'), '.');
+        .replace(new RegExp(sep, 'g'), '.')
+        .split('.')
+        .map(camelCase)
+        .join('.');
 
     set(result, name, require(`.${sep}${join(env, fileName)}`));
 

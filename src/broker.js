@@ -5,9 +5,10 @@ const
     log = require('./lib/logger');
 
 const broker = Broker({
-    servicesPath: './services',
-    actionsPath: './actions',
-    singletonsPath: './singletons',
+    pluginsPath: 'src/plugins',
+    servicesPath: 'src/services',
+    actionsPath: 'src/actions',
+    singletonsPath: 'src/singletons',
 });
 
 module.exports = broker;

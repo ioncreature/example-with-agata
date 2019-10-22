@@ -16,7 +16,7 @@ exports.fn = ({singletons: {redis, config}, plugins: {publish}}) => {
     /**
      * @alias user.signUp
      * @param {string} name
-     * @return Promise<string>
+     * @return {Promise<string>}
      */
     return async name => {
         const
@@ -26,12 +26,12 @@ exports.fn = ({singletons: {redis, config}, plugins: {publish}}) => {
         if (!isSet)
             throw BadRequest('User is already signed up');
 
-        await this.client.zaddAsync('users', Date.now(), name);
+        await client.zaddAsync('users', Date.now(), name);
 
         await publish(name);
 
         return token;
-    }
+    };
 };
 
 

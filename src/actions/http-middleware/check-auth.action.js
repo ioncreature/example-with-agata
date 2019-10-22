@@ -12,6 +12,10 @@ exports.fn = ({singletons: {redis, config}}) => {
 
     /**
      * @alias httpMiddleware.checkAuth
+     * @param {ClientRequest} req
+     * @param {ServerResponse} res
+     * @param {Function} next
+     * @return {void}
      */
     return (req, res, next) => {
         const token = req.cookies[config.common.authCookieName];
@@ -20,8 +24,8 @@ exports.fn = ({singletons: {redis, config}}) => {
             return next(Unauthorized('No authorization cookie provided'));
 
         getUser()
-            .then(userName => {
-                req.userName = userName;
+            .then(name => {
+                req.user = {name, token};
                 next();
             })
             .catch(next);
@@ -30,15 +34,15 @@ exports.fn = ({singletons: {redis, config}}) => {
     async function getUser(token) {
         const
             key = `token:${token}`,
-            userName = await client.getAsync(key);
+            name = await client.getAsync(key);
 
-        if (!userName)
+        if (!name)
             throw Unauthorized('Unknown token');
 
         client
             .expireAsync(key, config.common.sessionDurationSeconds)
-            .catch(e => log.error(`Error updating expiration for "${userName}"`, e));
+            .catch(e => log.error(`Error updating token expiration for "${name}"`, e));
 
-        return userName;
+        return name;
     }
 };

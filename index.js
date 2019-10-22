@@ -5,16 +5,26 @@ const
     log = require('./src/lib/logger'),
     broker = require('./src/broker');
 
-console.log(require('./config'));
+
 program
     .command('run <service>')
     .description('Runs service')
     .action(service => {
         broker
             .startService(service)
-            .then(() => log.notice(`Service "${service}" started`))
+            .then(() => log.info(`Service "${service}" started`))
             .catch(e => {
-                log.error(e);
+                log.error(e.stack);
                 process.exit(1);
             });
     });
+
+
+program
+    .command('deps')
+    .description('Return dependencies description in JSON')
+    .action(() => {
+        log.info(JSON.stringify(broker.getDependencies(), null, 2));
+    });
+
+program.parse(process.argv);

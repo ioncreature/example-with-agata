@@ -5,6 +5,7 @@ const
     http = require('http'),
     morgan = require('morgan'),
     cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser'),
     {NotFound, InternalServerError} = require('yahel'),
     log = require('./logger');
 
@@ -68,10 +69,12 @@ function createHttpApp(httpRouter) {
 
     app.use(morgan(
         '[:remote-addr] :method :url HTTP/:http-version :status [:res[content-length] b] [:response-time ms]',
-        {stream: {write: msg => log(msg.trim())}}
+        {stream: {write: msg => log.verbose(msg.trim())}}
     ));
 
     app.use(cookieParser());
+    app.use(bodyParser.urlencoded({extended: false}));
+    app.use(bodyParser.json());
 
     app.use(httpRouter);
 
@@ -89,7 +92,7 @@ function createHttpApp(httpRouter) {
         if (status >= 500)
             log.error(`Server Error "${message}" at "${req.originalUrl}":`, e);
         else
-            log.notice(`Status: ${status} at "${req.method} ${req.originalUrl}", reason: ${message}`);
+            log.warn(`Status: ${status} at "${req.method} ${req.originalUrl}", reason: ${message}`);
     });
 
     return app;
