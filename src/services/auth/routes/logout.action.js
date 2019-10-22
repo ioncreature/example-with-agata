@@ -1,9 +1,8 @@
 'use strict';
 
-
 exports.actions = ['user.signOut'];
-exports.fn = ({actions: {user}}) => {
 
+exports.fn = ({actions: {user}}) => {
     return (req, res, next) => {
         const {name, token} = req.user;
         user
