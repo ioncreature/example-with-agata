@@ -7,13 +7,16 @@ const
 
 
 exports.localActionsPath = join(__dirname, '/routes');
+exports.actions = ['httpMiddleware.checkAuth'];
 exports.singletons = ['config', 'redis'];
 
 
-exports.start = async({state, singletons: {config}}) => {
+exports.start = async({state, singletons: {config}, actions: {httpMiddleware}, localActions}) => {
     const router = Router();
 
-    // todo: implement http apis
+    router.get('/api/users', httpMiddleware.checkAuth, localActions.getUsers);
+    router.get('/api/messages', httpMiddleware.checkAuth, localActions.getMessages);
+    router.post('/api/messages', httpMiddleware.checkAuth, localActions.postMessage);
 
     state.httpServer = new HttpServer(router);
     await state.httpServer.listen(config.chatApi.port);
