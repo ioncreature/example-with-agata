@@ -16,13 +16,12 @@ exports.fn = ({actions: {user}, singletons: {config}}) => {
         user
             .signUp(name)
             .then(token => {
-                res
-                    .cookie(
-                        config.common.authCookieName,
-                        token,
-                        {maxAge: config.common.sessionDurationSeconds * 1000},
-                    )
-                    .json({result: {token}});
+                res.cookie(
+                    config.common.authCookieName,
+                    token,
+                    {maxAge: config.common.sessionDurationSeconds * 1000},
+                );
+                res.json({result: {token}});
             })
             .catch(next);
     };
