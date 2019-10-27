@@ -6,9 +6,9 @@ const
     HttpServer = require('../../lib/http-server');
 
 
-exports.localActionsPath = join(__dirname, '/routes');
-exports.actions = ['httpMiddleware.checkAuth'];
 exports.singletons = ['config', 'redis'];
+exports.actions = ['httpMiddleware.checkAuth'];
+exports.localActionsPath = join(__dirname, '/routes');
 
 
 exports.start = async({state, singletons: {config}, actions: {httpMiddleware}, localActions}) => {

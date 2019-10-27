@@ -30,6 +30,7 @@
     "morgan": "1.9.1",
     "redis": "2.8.0",
     "winston": "3.2.1",
+    "ws": "7.2.0",
     "yahel": "0.5.3"
   },
   "devDependencies": {

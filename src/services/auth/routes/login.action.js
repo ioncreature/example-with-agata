@@ -14,7 +14,7 @@ exports.fn = ({actions: {user}, singletons: {config}}) => {
             return next(BadRequest('Parameter name is required'));
 
         user
-            .signUp(name)
+            .signUp(req.body.name)
             .then(token => {
                 res.cookie(
                     config.common.authCookieName,

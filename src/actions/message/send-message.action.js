@@ -15,17 +15,17 @@ exports.fn = ({singletons: {redis, config}, plugins: {publish}}) => {
 
     /**
      * @alias message.sendMessage
-     * @param {string} name
+     * @param {string} from
      * @param {string} text
      */
-    return async(name, text) => {
-        if (!name)
+    return async(from, text) => {
+        if (!from)
             throw BadRequest('Sender name is required');
 
         if (!text)
             throw BadRequest('Parameter "text" is required');
 
-        const message = {name, text, at: Date.now()};
+        const message = {from, text, at: Date.now()};
 
         await client
             .batch([
