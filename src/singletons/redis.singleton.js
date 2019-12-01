@@ -7,10 +7,13 @@ const
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
 
-
 exports.singletons = ['config'];
-exports.start = async({singletons: {config}}) => {
+
+exports.start = async({singletons: {config}, state}) => {
     const [mainClient, subClient] = await Promise.all([createClient(), createClient()]);
+
+    state.mainClient = mainClient;
+    state.subClient = subClient;
 
     return {mainClient, subClient};
 
@@ -19,10 +22,14 @@ exports.start = async({singletons: {config}}) => {
             const client = redis.createClient({port: config.redis.port, host: config.redis.host});
             client.on('connect', () => {
                 client.removeListener('error', reject);
-                resolve();
+                resolve(client);
             });
             client.on('error', reject);
-            return client;
         });
     }
+};
+
+exports.stop = async({state: {mainClient, subClient}}) => {
+    mainClient.end(true);
+    subClient.end(true);
 };

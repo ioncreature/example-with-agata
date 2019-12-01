@@ -14,11 +14,11 @@ const broker = Broker({
 module.exports = broker;
 
 process.on('uncaughtException', error => {
-    log.error('Uncaught exception', error);
+    log.error('Uncaught exception ', error);
     process.exit(1);
 });
 
 process.on('unhandledRejection', reason => {
-    log.error('Unhandled promise rejection', reason);
+    log.error('Unhandled promise rejection ', reason);
     process.exit(1);
 });

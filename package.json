@@ -19,8 +19,8 @@
   },
   "homepage": "https://github.com/ioncreature/example-with-agata#readme",
   "dependencies": {
-    "agata": "1.4.1",
-    "bluebird": "3.7.1",
+    "agata": "2.0.0",
+    "bluebird": "3.7.2",
     "body-parser": "1.19.0",
     "commander": "3.0.2",
     "cookie-parser": "1.4.4",
@@ -34,7 +34,7 @@
     "yahel": "0.5.3"
   },
   "devDependencies": {
-    "eslint": "6.5.1",
+    "eslint": "6.7.1",
     "eslint-config-agata": "0.1.2"
   },
   "eslintConfig": {
