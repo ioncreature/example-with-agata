@@ -29,8 +29,8 @@ exports.fn = ({singletons: {redis, config}, plugins: {publish}}) => {
 
         await client
             .batch([
-                ['lpush', 'messages', JSON.stringify(message)],
-                ['ltrim', 'messages', 0, config.common.maxMessages - 1],
+                ['lpush', config.redis.MESSAGES_KEY, JSON.stringify(message)],
+                ['ltrim', config.redis.MESSAGES_KEY, 0, config.common.maxMessages - 1],
             ])
             .execAsync();
 

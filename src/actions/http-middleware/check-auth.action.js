@@ -23,7 +23,7 @@ exports.fn = ({singletons: {redis, config}}) => {
         if (!token)
             return next(Unauthorized('No authorization cookie provided'));
 
-        getUser()
+        getUser(token)
             .then(name => {
                 req.user = {name, token};
                 next();
@@ -33,7 +33,7 @@ exports.fn = ({singletons: {redis, config}}) => {
 
     async function getUser(token) {
         const
-            key = `token:${token}`,
+            key = `${config.redis.TOKEN_PREFIX}:${token}`,
             name = await client.getAsync(key);
 
         if (!name)

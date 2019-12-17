@@ -1,12 +1,12 @@
 'use strict';
 
-exports.singletons = ['redis'];
+exports.singletons = ['redis', 'config'];
 
 exports.plugins = {
     publish: {channel: 'user-logout'},
 };
 
-exports.fn = ({singletons: {redis}, plugins: {publish}}) => {
+exports.fn = ({singletons: {redis, config}, plugins: {publish}}) => {
     const client = redis.mainClient;
 
     /**
@@ -16,8 +16,8 @@ exports.fn = ({singletons: {redis}, plugins: {publish}}) => {
      * @return {Promise<void>}
      */
     return async(name, token) => {
-        await client.delAsync(`token:${token}`);
-        await client.zremAsync('users', name);
+        await client.delAsync(`${config.redis.TOKEN_PREFIX}:${token}`);
+        await client.zremAsync(config.redis.USERS_KEY, name);
         await publish(name);
     };
 };

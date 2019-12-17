@@ -6,7 +6,7 @@
   "scripts": {
     "env": "sh ./script/redis.sh",
     "lint": "eslint .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/ioncreature/example-with-agata#readme",
   "dependencies": {
-    "agata": "2.0.0",
+    "agata": "2.1.0",
     "bluebird": "3.7.2",
     "body-parser": "1.19.0",
     "commander": "3.0.2",
@@ -34,8 +34,9 @@
     "yahel": "0.5.3"
   },
   "devDependencies": {
-    "eslint": "6.7.1",
-    "eslint-config-agata": "0.1.2"
+    "eslint": "6.7.2",
+    "eslint-config-agata": "0.1.2",
+    "jest": "24.9.0"
   },
   "eslintConfig": {
     "extends": "agata",

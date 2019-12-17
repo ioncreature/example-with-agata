@@ -69,7 +69,7 @@ function createHttpApp(httpRouter) {
 
     app.use(morgan(
         '[:remote-addr] :method :url HTTP/:http-version :status [:res[content-length] b] [:response-time ms]',
-        {stream: {write: msg => log.verbose(msg.trim())}}
+        {stream: {write: msg => log.verbose(msg.trim())}},
     ));
 
     app.use(cookieParser());
