@@ -1,5 +1,2 @@
 .idea
 node_modules
-
-# we do not need it in example app
-package-lock.json

@@ -7,9 +7,10 @@ const
 
 
 exports.localActionsPath = join(__dirname, '/routes');
-exports.singletons = ['config', 'redis'];
-exports.actions = ['httpMiddleware.checkAuth'];
 
+exports.singletons = ['config', 'redis'];
+
+exports.actions = ['httpMiddleware.checkAuth'];
 
 exports.start = async({
     singletons: {config},
