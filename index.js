@@ -7,6 +7,29 @@ const
 
 
 program
+    .command('dev')
+    .description('Runs all services for DEV purposes')
+    .action(() => {
+        Promise.all([
+            broker.startService('auth'),
+            broker.startService('chatApi'),
+            broker.startService('updates'),
+        ]).catch(error => {
+            log.error(`Error starting services: ${error.stack}`);
+            Promise
+                .all([
+                    broker.stopService('auth'),
+                    broker.stopService('chatApi'),
+                    broker.stopService('updates'),
+                ])
+                .catch(e => {
+                    log.error(e);
+                    process.exit(1);
+                });
+        });
+    });
+
+program
     .command('run <service>')
     .description('Runs service')
     .action(service => {

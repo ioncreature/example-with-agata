@@ -11,7 +11,6 @@ exports.singletons = ['config'];
 
 exports.start = async({singletons: {config}, state}) => {
     const [mainClient, subClient] = await Promise.all([createClient(), createClient()]);
-
     state.mainClient = mainClient;
     state.subClient = subClient;
 

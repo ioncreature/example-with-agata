@@ -33,7 +33,7 @@ exports.start = async({
     });
 
     await state.httpServer.listen(config.updates.port);
-    redis.on('message', (channel, message) => {
+    redis.subClient.on('message', (channel, message) => {
         let data;
         try {
             data = JSON.parse(message);

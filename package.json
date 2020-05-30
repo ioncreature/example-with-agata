@@ -4,9 +4,10 @@
   "description": "Example chat application with Agata library",
   "main": "index.js",
   "scripts": {
-    "env": "sh ./script/redis.sh",
+    "env": "sh script/run-deps.sh",
     "lint": "eslint .",
-    "test": "jest"
+    "test": "jest",
+    "dev": "./index.js dev"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,7 @@
   },
   "homepage": "https://github.com/ioncreature/example-with-agata#readme",
   "dependencies": {
-    "agata": "2.1.0",
+    "agata": "2.2.0",
     "bluebird": "3.7.2",
     "body-parser": "1.19.0",
     "commander": "5.1.0",
