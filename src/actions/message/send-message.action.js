@@ -1,7 +1,8 @@
 'use strict';
 
 const
-    {BadRequest} = require('yahel');
+    {BadRequest} = require('yahel'),
+    {isString} = require('lodash');
 
 
 exports.singletons = ['redis', 'config'];
@@ -19,11 +20,11 @@ exports.fn = ({singletons: {redis, config}, plugins: {publish}}) => {
      * @param {string} text
      */
     return async(from, text) => {
-        if (!from)
-            throw BadRequest('Sender name is required');
+        if (!isString(from))
+            throw BadRequest('Sender name have to be string');
 
-        if (!text)
-            throw BadRequest('Parameter "text" is required');
+        if (!isString(text))
+            throw BadRequest('Parameter "text" have to be string');
 
         const message = {from, text, at: Date.now()};
 

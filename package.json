@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/ioncreature/example-with-agata#readme",
   "dependencies": {
-    "agata": "2.2.0",
+    "agata": "2.2.1",
     "bluebird": "3.7.2",
     "body-parser": "1.19.0",
     "commander": "5.1.0",
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "eslint": "7.1.0",
-    "eslint-config-agata": "0.1.2",
+    "eslint-config-agata": "0.1.5",
     "jest": "26.0.1"
   },
   "eslintConfig": {
