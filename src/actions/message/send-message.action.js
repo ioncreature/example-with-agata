@@ -34,7 +34,7 @@ exports.fn = ({singletons: {redis, config}, plugins: {publish}}) => {
                 ['ltrim', config.redis.MESSAGES_KEY, 0, config.common.maxMessages - 1],
             ])
             .execAsync();
-console.log(publish)
+
         await publish(message);
 
         return message;

@@ -9,13 +9,9 @@ describe('Action "message.send-message"', () => {
     beforeAll(async() => {
         sendMessage = await broker.mockAction('message.sendMessage', {
             plugins: {
-                publish: {
-                    start() {
-                        return () => {
-                            messagePublished = true;
-                        };
-                    },
-                },
+                publish: () => {
+                    messagePublished = true;
+                }
             },
         });
     });
@@ -38,6 +34,7 @@ describe('Action "message.send-message"', () => {
 
     it('should send message', async() => {
         const message = await sendMessage('Alex', 'hi');
+
         expect(messagePublished).toBe(true);
         expect(message.from).toEqual('Alex');
         expect(message.text).toEqual('hi');
