@@ -11,7 +11,7 @@ describe('Action "message.send-message"', () => {
             plugins: {
                 publish: () => {
                     messagePublished = true;
-                }
+                },
             },
         });
     });
