@@ -7,8 +7,6 @@ exports.plugins = {
 };
 
 exports.fn = ({singletons: {redis, config}, plugins: {publish}}) => {
-    const client = redis.mainClient;
-
     /**
      * @alias user.signOut
      * @param {string} name
@@ -16,8 +14,8 @@ exports.fn = ({singletons: {redis, config}, plugins: {publish}}) => {
      * @return {Promise<void>}
      */
     return async(name, token) => {
-        await client.delAsync(`${config.redis.TOKEN_PREFIX}:${token}`);
-        await client.zremAsync(config.redis.USERS_KEY, name);
+        await redis.delAsync(`${config.redis.TOKEN_PREFIX}:${token}`);
+        await redis.zremAsync(config.redis.USERS_KEY, name);
         await publish(name);
     };
 };

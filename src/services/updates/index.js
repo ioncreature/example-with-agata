@@ -15,12 +15,12 @@ const
     };
 
 
-exports.singletons = ['redis', 'config'];
+exports.singletons = ['redisSubscribe', 'config'];
 exports.actions = ['httpMiddleware.checkAuth'];
 
 
 exports.start = async({
-    singletons: {redis, config},
+    singletons: {redisSubscribe, config},
     actions: {httpMiddleware},
     state,
 }) => {
@@ -33,7 +33,7 @@ exports.start = async({
     });
 
     await state.httpServer.listen(config.updates.port);
-    redis.subClient.on('message', (channel, message) => {
+    redisSubscribe.on('message', (channel, message) => {
         let data;
         try {
             data = JSON.parse(message);
@@ -58,7 +58,7 @@ exports.start = async({
         }
     });
 
-    redis.subClient.subscribe([CHANNEL.LOGIN, CHANNEL.LOGOUT, CHANNEL.NEW_MESSAGE]);
+    redisSubscribe.subscribe([CHANNEL.LOGIN, CHANNEL.LOGOUT, CHANNEL.NEW_MESSAGE]);
 
     function sendAll(data) {
         state.wsServer.clients.forEach(socket => {

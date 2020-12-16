@@ -18,7 +18,6 @@ exports.start = async ({singletons: {config}, state}) => {
                 host: config.redis.host,
             });
             client.on('connect', () => {
-                log.debug('[redis] connected');
                 client.removeListener('error', reject);
                 resolve(client);
             });

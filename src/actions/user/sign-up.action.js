@@ -1,8 +1,6 @@
 'use strict';
 
-const
-    {BadRequest} = require('yahel');
-
+const {BadRequest} = require('yahel');
 
 exports.singletons = ['redis', 'config'];
 
@@ -11,8 +9,6 @@ exports.plugins = {
 };
 
 exports.fn = ({singletons: {redis, config}, plugins: {publish}}) => {
-    const client = redis.mainClient;
-
     /**
      * @alias user.signUp
      * @param {string} name
@@ -26,7 +22,7 @@ exports.fn = ({singletons: {redis, config}, plugins: {publish}}) => {
         if (!isSet)
             throw BadRequest('User is already signed up');
 
-        await client.zaddAsync(config.redis.USERS_KEY, Date.now(), name);
+        await redis.zaddAsync(config.redis.USERS_KEY, Date.now(), name);
 
         await publish(name);
 

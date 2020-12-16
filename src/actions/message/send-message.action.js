@@ -12,8 +12,6 @@ exports.plugins = {
 };
 
 exports.fn = ({singletons: {redis, config}, plugins: {publish}}) => {
-    const client = redis.mainClient;
-
     /**
      * @alias message.sendMessage
      * @param {string} from
@@ -28,7 +26,7 @@ exports.fn = ({singletons: {redis, config}, plugins: {publish}}) => {
 
         const message = {from, text, at: Date.now()};
 
-        await client
+        await redis
             .batch([
                 ['lpush', config.redis.MESSAGES_KEY, JSON.stringify(message)],
                 ['ltrim', config.redis.MESSAGES_KEY, 0, config.common.maxMessages - 1],
