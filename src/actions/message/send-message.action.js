@@ -27,11 +27,10 @@ exports.fn = ({singletons: {redis, config}, plugins: {publish}}) => {
         const message = {from, text, at: Date.now()};
 
         await redis
-            .batch([
-                ['lpush', config.redis.MESSAGES_KEY, JSON.stringify(message)],
-                ['ltrim', config.redis.MESSAGES_KEY, 0, config.common.maxMessages - 1],
-            ])
-            .execAsync();
+            .pipeline()
+            .lpush(config.redis.MESSAGES_KEY, JSON.stringify(message))
+            .ltrim(config.redis.MESSAGES_KEY, 0, config.common.maxMessages - 1)
+            .exec();
 
         await publish(message);
 

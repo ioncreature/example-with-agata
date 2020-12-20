@@ -17,7 +17,7 @@ exports.fn = ({singletons: {redis, config}, plugins: {publish}}) => {
     return async name => {
         const
             token = generateToken(),
-            isSet = await client.setAsync(`${config.redis.TOKEN_PREFIX}:${token}`, name, 'NX', 'EX', config.common.sessionDurationSeconds);
+            isSet = await redis.setAsync(`${config.redis.TOKEN_PREFIX}:${token}`, name, 'NX', 'EX', config.common.sessionDurationSeconds);
 
         if (!isSet)
             throw BadRequest('User is already signed up');
