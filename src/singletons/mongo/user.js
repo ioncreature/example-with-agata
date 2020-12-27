@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 exports.singletons = ['mongo.connection'];
 
-exports.start = async() => {
+exports.start = async () => {
     const userScheme = new mongoose.Schema({
         name: {
             type: String,

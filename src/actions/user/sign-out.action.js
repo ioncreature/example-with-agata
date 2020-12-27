@@ -13,9 +13,9 @@ exports.fn = ({singletons: {redis, config}, plugins: {publish}}) => {
      * @param {string} token
      * @return {Promise<void>}
      */
-    return async(name, token) => {
+    return async (name, token) => {
         await redis.del(`${config.redis.TOKEN_PREFIX}:${token}`);
         await redis.zrem(config.redis.USERS_KEY, name);
-        await publish(name);
+        await publish({name});
     };
 };

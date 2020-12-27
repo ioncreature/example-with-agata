@@ -1,7 +1,6 @@
 'use strict';
 
-const
-    {Broker} = require('agata'),
+const {Broker} = require('agata'),
     log = require('./lib/logger');
 
 const broker = Broker({

@@ -3,7 +3,6 @@
 exports.actions = ['message.getMessages'];
 
 exports.fn = ({actions: {message}}) => {
-
     /**
      * @alias localActions.getMessages
      * @param {ClientRequest} req

@@ -11,10 +11,7 @@ describe('POST /api/auth/login', () => {
         await broker.startService('auth');
     });
 
-    it.each([
-        {},
-        {name: ''},
-    ])('should return 400 on invalid request parameters: %p', async params => {
+    it.each([{}, {name: ''}])('should return 400 on invalid request parameters: %p', async params => {
         await request //
             .post('/api/auth/login')
             .send(params)
@@ -23,13 +20,15 @@ describe('POST /api/auth/login', () => {
     });
 
     it('should return login and return token', async () => {
+        const name = `name-${Date.now()}`;
         const {body} = await request
             .post('/api/auth/login')
-            .send({name: `name-${Date.now()}`})
+            .send({name})
             .expect('Content-Type', /json/)
             .expect('Set-Cookie', /AUTH_TOKEN=/)
             .expect(200);
 
-        expect(body.result.token).toBeTruthy();
+        expect(body.token).toBeTruthy();
+        expect(body.name).toEqual(name);
     });
 });

@@ -1,9 +1,7 @@
 'use strict';
 
-const
-    {Unauthorized} = require('yahel'),
+const {Unauthorized} = require('yahel'),
     log = require('../../lib/logger');
-
 
 exports.singletons = ['redis', 'config'];
 
@@ -18,8 +16,7 @@ exports.fn = ({singletons: {redis, config}}) => {
     return (req, res, next) => {
         const token = req.cookies[config.common.authCookieName];
 
-        if (!token)
-            return next(Unauthorized('No authorization cookie provided'));
+        if (!token) return next(Unauthorized('No authorization cookie provided'));
 
         getUser(token)
             .then(name => {
@@ -30,12 +27,10 @@ exports.fn = ({singletons: {redis, config}}) => {
     };
 
     async function getUser(token) {
-        const
-            key = `${config.redis.TOKEN_PREFIX}:${token}`,
+        const key = `${config.redis.TOKEN_PREFIX}:${token}`,
             name = await redis.get(key);
 
-        if (!name)
-            throw Unauthorized('Unknown token');
+        if (!name) throw Unauthorized('Unknown token');
 
         redis
             .expire(key, config.common.sessionDurationSeconds)

@@ -8,7 +8,7 @@ const
 
 program
     .command('dev')
-    .description('Runs all services for DEV purposes')
+    .description('Start all services for DEV purposes')
     .action(() => {
         Promise.all([
             broker.startService('auth'),
@@ -31,7 +31,7 @@ program
 
 program
     .command('run <service>')
-    .description('Runs service')
+    .description('Start service')
     .action(service => {
         broker
             .startService(service)

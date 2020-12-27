@@ -3,7 +3,6 @@
 exports.actions = ['user.getUsers'];
 
 exports.fn = ({actions: {user}}) => {
-
     /**
      * @alias localActions.getUsers
      * @param {ClientRequest} req
@@ -11,8 +10,7 @@ exports.fn = ({actions: {user}}) => {
      * @param {function} next
      */
     return (req, res, next) => {
-        user
-            .getUsers()
+        user.getUsers()
             .then(users => res.json({result: users}))
             .catch(next);
     };

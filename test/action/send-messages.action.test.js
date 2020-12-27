@@ -6,7 +6,7 @@ describe('Action "message.send-message"', () => {
     let sendMessage;
     let messagePublished = false;
 
-    beforeAll(async() => {
+    beforeAll(async () => {
         sendMessage = await broker.mockAction('message.sendMessage', {
             plugins: {
                 publish: () => {
@@ -24,15 +24,11 @@ describe('Action "message.send-message"', () => {
         [undefined, undefined],
         ['Alex', undefined],
         ['Alex', 100],
-    ])(
-        'should throw on invalid params, path: %p %p',
-        async(from, message) => {
-            await expect(sendMessage(from, message)).rejects.toThrow();
-        },
-    );
+    ])('should throw on invalid params, path: %p %p', async (from, message) => {
+        await expect(sendMessage(from, message)).rejects.toThrow();
+    });
 
-
-    it('should send message', async() => {
+    it('should send message', async () => {
         const message = await sendMessage('Alex', 'hi');
 
         expect(messagePublished).toBe(true);

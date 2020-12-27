@@ -1,17 +1,14 @@
 'use strict';
 
-const
-    {join} = require('path'),
+const {join} = require('path'),
     Router = require('express').Router,
     HttpServer = require('../../lib/http-server');
-
 
 exports.singletons = ['config', 'redis'];
 exports.actions = ['httpMiddleware.checkAuth'];
 exports.localActionsPath = join(__dirname, '/routes');
 
-
-exports.start = async({state, singletons: {config}, actions: {httpMiddleware}, localActions}) => {
+exports.start = async ({state, singletons: {config}, actions: {httpMiddleware}, localActions}) => {
     const router = Router();
 
     router.get('/api/users', httpMiddleware.checkAuth, localActions.getUsers);
@@ -22,7 +19,6 @@ exports.start = async({state, singletons: {config}, actions: {httpMiddleware}, l
     await state.httpServer.listen(config.chatApi.port);
 };
 
-
-exports.stop = async({state}) => {
+exports.stop = async ({state}) => {
     await (state.httpServer && state.httpServer.close());
 };
