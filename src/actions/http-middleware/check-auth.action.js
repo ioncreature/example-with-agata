@@ -32,13 +32,13 @@ exports.fn = ({singletons: {redis, config}}) => {
     async function getUser(token) {
         const
             key = `${config.redis.TOKEN_PREFIX}:${token}`,
-            name = await redis.getAsync(key);
+            name = await redis.get(key);
 
         if (!name)
             throw Unauthorized('Unknown token');
 
         redis
-            .expireAsync(key, config.common.sessionDurationSeconds)
+            .expire(key, config.common.sessionDurationSeconds)
             .catch(e => log.error(`Error updating token expiration for "${name}"`, e));
 
         return name;

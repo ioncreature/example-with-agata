@@ -4,10 +4,11 @@
   "description": "Example chat application with Agata library",
   "main": "index.js",
   "scripts": {
+    "coverage": "jest --runInBand --coverage",
+    "dev": "./index.js dev",
     "env": "sh script/run-deps.sh",
     "lint": "eslint .",
-    "test": "jest",
-    "dev": "./index.js dev"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -45,5 +46,25 @@
     "env": {
       "node": true
     }
+  },
+  "jest": {
+    "testTimeout": 3000,
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ],
+    "testEnvironment": "node",
+    "collectCoverage": false,
+    "coverageReporters": [
+      "json",
+      "html"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/test/cleanup.js"
+    ]
   }
 }

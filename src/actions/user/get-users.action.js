@@ -9,7 +9,7 @@ exports.fn = ({singletons: {redis, config}}) => {
      * @return {Promise<Array<string>>}
      */
     return async() => {
-        const users = await redis.zrangeAsync(config.redis.USERS_KEY, 0, -1);
+        const users = await redis.zrange(config.redis.USERS_KEY, 0, -1);
         return users.map(JSON.parse);
     };
 };
