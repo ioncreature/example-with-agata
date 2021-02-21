@@ -12,6 +12,19 @@ const broker = Broker({
 
 module.exports = broker;
 
+broker.on('service-starting', name => log.debug(`Service ${name} is starting`));
+broker.on('service-started', name => log.debug(`Service ${name} started`));
+broker.on('service-stopping', name => log.debug(`Service ${name} is stopping`));
+broker.on('service-stopped', name => log.debug(`Service ${name} stopped`));
+broker.on('singleton-starting', name => log.debug(`Singleton ${name} is starting`));
+broker.on('singleton-started', name => log.debug(`Singleton ${name} started`));
+broker.on('singleton-stopping', name => log.debug(`Singleton ${name} is stopping`));
+broker.on('singleton-stopped', name => log.debug(`Singleton ${name} stopped`));
+broker.on('plugin-starting', name => log.debug(`Plugin ${name} is starting`));
+broker.on('plugin-started', name => log.debug(`Plugin ${name} started`));
+broker.on('action-starting', name => log.debug(`Action ${name} is starting`));
+broker.on('action-started', name => log.debug(`Action ${name} started`));
+
 process.on('uncaughtException', error => {
     log.error('Uncaught exception ', error);
     process.exit(1);
